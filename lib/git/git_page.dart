@@ -16,6 +16,7 @@ class _GitPageState extends State<GitPage> {
   var _listPath = <String>[];
   var _textEditingController = TextEditingController();
   var gitService = GitService();
+  var scrollController = ScrollController();
 
   @override
   void initState() {
@@ -135,9 +136,9 @@ class _GitPageState extends State<GitPage> {
                   Text("Ultimos caminhos acessados"),
                   Expanded(
                     child: Scrollbar(
-                      isAlwaysShown: true,
-                      showTrackOnHover: true,
+                      controller: scrollController,
                       child: ListView(
+                        controller: scrollController,
                         children: List.generate(_listPath.length, (index){
                           return GestureDetector(
                             onTap: () {
