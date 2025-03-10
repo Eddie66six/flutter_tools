@@ -1,6 +1,6 @@
 import 'dart:io';
 class GitService {
-  var runInShell = false;
+  var runInShell = true;
   Future<void> removeLocalBranches(String gitPath, Function(String) stepNotifier) async{
     try {
       stepNotifier("Atualizando repositorio local....");
@@ -56,7 +56,7 @@ class GitService {
   _getLocalBranches(String gitPath) async{
     try {
     var localBranches = [];
-    await Process.run("git --git-dir ${_spacePath(gitPath, extra: '\\.git')} --work-tree ${_spacePath(gitPath)} branch", [], runInShell: runInShell).then((result) {
+    await Process.run('git --git-dir ${_spacePath(gitPath, extra: '\\.git')} --work-tree ${_spacePath(gitPath)} branch', [], runInShell: runInShell).then((result) {
       localBranches = result.stdout.toString().split('\n');
     });
     return localBranches; 
@@ -104,7 +104,7 @@ class GitService {
       }
       _path = "\"$_path$extra\"";
     }
-    return _path;
+    return "$_path$extra";
   }
 
   _removeCache(String gitPath) async{
